@@ -1,44 +1,43 @@
----
-subtitle: "[]{#_btx1ik1yp3b0 .anchor}San Diego Criminal Cases "
-title: "[]{#_7171ge9vxvog .anchor}Data Collection & Research"
----
+# Data Collection & Research
+## San Diego Criminal Cases
+
 
 Content
 
-[**Purpose 2**](#purpose)
+[**Purpose**](#purpose)
 
-[**Background 2**](#background)
+[**Background**](#background)
 
-[**The Manual Research Challenge 3**](#the-manual-research-challenge)
+[**The Manual Research Challenge**](#the-manual-research-challenge)
 
-[**Automation With Hybrid Approach
-5**](#automation-with-hybrid-approach)
+[Automation With Hybrid Approach
+](#automation-with-hybrid-approach)
 
 > [What Still Requires Human Oversight
-> 5](#what-still-requires-human-oversight)
+> ](#what-still-requires-human-oversight)
 
-[**What You Need Before Starting 7**](#what-you-need-before-starting)
+[**What You Need Before Starting**](#what-you-need-before-starting)
 
-[**Running the Analysis 9**](#running-the-analysis)
+[**Running the Analysis**](#running-the-analysis)
 
-> [Step 1: Extract Court Data 9](#step-1-extract-court-data)
+> [Step 1: Extract Court Data](#step-1-extract-court-data)
 >
 > [Step 2: Finding Crime Dates & Sentences Using GPT
-> 9](#step-2-finding-crime-dates-sentences-using-gpt)
+> ](#step-2-finding-crime-dates-sentences-using-gpt)
 >
 > [Step 3: Manual Review & Completion
-> 11](#step-3-manual-review-completion)
+> ](#step-3-manual-review-completion)
 >
-> [Getting Help 14](#getting-help)
+> [Getting Help](#getting-help)
 >
-> [Final Tips for Success 14](#final-tips-for-success)
+> [Final Tips for Success](#final-tips-for-success)
 >
-> [Why This Step Matters 15](#why-this-step-matters)
+> [Why This Step Matters](#why-this-step-matters)
 
-[**Appendix 16**](#appendix)
+[**Appendix**](#appendix)
 
 > [A. GPT Extractor Prompt - Technical Implementation
-> 16](#a.-gpt-extractor-prompt---technical-implementation)
+> ](#a.-gpt-extractor-prompt---technical-implementation)
 
 #  
 
