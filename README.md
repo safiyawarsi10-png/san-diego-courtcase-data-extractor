@@ -682,30 +682,32 @@ Where **F** contains **DateFiled** (a date). Use the **DATEDIF** variant if you 
 13\. Data model (columns & meanings)
 ------------------------------------
 
-| Column | Description | Source |
-| CaseNumber | Court case identifier | Input file |
-| DataStatus | Status flag for Step 1 extraction | Step 1 |
-| DefendantName | Full name from court records (updated for casing if needed) | Step 1 / Step 2 |
-| DOB | Birth year (YYYY) | Step 1 |
-| DateFiled | Filing date | Step 1 |
-| CaseLocation | North County / San Diego / East / South | Step 1 |
-| CrimeDate | Date the offense occurred | Step 2 |
-| AgeAtCrime | Calculated numeric age (formula preferred; JSON value optional) | Formula / Step 2 |
-| AgeAtFiling | Age on the filing date (optional) | Formula |
-| AgeBand | Juvenile / Emerging Adult / Adult | Formula |
-| Sentence | Specific sentence imposed | Step 2 |
-| ChargesConvicted | e.g., First‑degree murder | Step 2 |
-| CrimeType | e.g., Robbery; Assault; Homicide (shooting) | Step 2 |
-| JuvenileOrAdultCourt | Whether the case was in juvenile or adult court | Step 2 |
-| PleaOrTrial | Plea vs. trial outcome | Step 2 |
-| SpecialCircumstance | Overall status code from §190.2 (`SC_*`) | Step 2 |
-| Confidence | GPT's confidence label for the row | Step 2 |
-| CaseSummary | 1--3 sentence summary of the case | Step 2 |
-| DefendantRace | Only if explicitly stated in reliable sources | Step 2 |
-| DAEra | A DA tenure label if you're studying a period | Step 1/Constant |
-| Source_DocketURL | Court record link (court index page) | Step 1 |
-| Source_ArticleURL | Primary news/opinion/official link | Step 2 |
-| Notes | QC flags, assumptions, and any extra source links | All steps |
+| Column              | Description                                               | Source             |
+|---------------------|-----------------------------------------------------------|--------------------|
+| CaseNumber          | Court case identifier                                     | Input file         |
+| DataStatus          | Status flag for Step 1 extraction                         | Step 1             |
+| DefendantName       | Full name from court records (updated for casing if needed)| Step 1 / Step 2    |
+| DOB                 | Birth year (YYYY)                                         | Step 1             |
+| DateFiled           | Filing date                                               | Step 1             |
+| CaseLocation        | North County / San Diego / East / South                   | Step 1             |
+| CrimeDate           | Date the offense occurred                                 | Step 2             |
+| AgeAtCrime          | Calculated numeric age (formula preferred; JSON value optional) | Formula / Step 2 |
+| AgeAtFiling         | Age on the filing date (optional)                         | Formula            |
+| AgeBand             | Juvenile / Emerging Adult / Adult                         | Formula            |
+| Sentence            | Specific sentence imposed                                 | Step 2             |
+| ChargesConvicted    | e.g., First-degree murder                                 | Step 2             |
+| CrimeType           | e.g., Robbery; Assault; Homicide (shooting)               | Step 2             |
+| JuvenileOrAdultCourt| Whether the case was in juvenile or adult court           | Step 2             |
+| PleaOrTrial         | Plea vs. trial outcome                                    | Step 2             |
+| SpecialCircumstance | Overall status code from §190.2 (SC_*)                    | Step 2             |
+| Confidence          | GPT’s confidence label for the row                        | Step 2             |
+| CaseSummary         | 1–3 sentence summary of the case                          | Step 2             |
+| DefendantRace       | Only if explicitly stated in reliable sources             | Step 2             |
+| DAEra               | A DA tenure label if you’re studying a period             | Step 1 / Constant  |
+| Source_DocketURL    | Court record link (court index page)                      | Step 1             |
+| Source_ArticleURL   | Primary news/opinion/official link                        | Step 2             |
+| Notes               | QC flags, assumptions, and any extra source links         | All steps          |
+
 
 * * * * *
 
