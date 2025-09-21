@@ -4,7 +4,7 @@ This folder contains scripts for extracting San Diego Superior Court case data i
 
 ---
 
-## 8. Getting your court session ID (JSESSIONID)
+## 1. Getting your court session ID (JSESSIONID)
 
 The San Diego Superior Court public portal issues a **JSESSIONID** cookie when you start a search.  
 We inject that cookie so automated requests are treated like a live session.
@@ -20,7 +20,7 @@ Sessions expire; that’s why you copy a fresh ID when needed.
 
 ---
 
-## 8.1 San Diego–specific behavior & adapting to other counties
+## 2. San Diego–specific behavior & adapting to other counties
 
 This repository’s Step 1 script and instructions are tuned to the **San Diego Superior Court** public index.  
 
@@ -48,7 +48,7 @@ If a portal blocks automation, fall back to **manual Step 1**.
 
 ---
 
-## 9. Project layout (Step 1 perspective)
+## 3. Project layout (Step 1 perspective)
 
 ```
 project/
@@ -61,9 +61,9 @@ project/
 
 ---
 
-## 10. Step 1 — Extract court data
+## 4. Step 1 — Extract court data
 
-### 10.1 Prepare your case list
+### 4.1 Prepare your case list
 Create a plain-text file with **one case number per line**:
 
 ```
@@ -74,7 +74,7 @@ CE366120
 CS290571
 ```
 
-### 10.2 Run the extractor
+### 4.2 Run the extractor
 ```bash
 python step1_fetch_cases_playwright.py <JSESSIONID> <path/to/cases.txt>
 ```
@@ -84,7 +84,7 @@ python step1_fetch_cases_playwright.py <JSESSIONID> <path/to/cases.txt>
 python step1_fetch_cases_playwright.py A1B2C3D4E5F6 san_diego_cases.txt
 ```
 
-### 10.3 What Step 1 writes into the spreadsheet
+### 4.3 What Step 1 writes into the spreadsheet
 For each case, Step 1 creates a row with:
 
 - **CaseNumber** (from your TXT)  
@@ -101,3 +101,47 @@ For each case, Step 1 creates a row with:
 - **Source_DocketURL** (direct link to court record)
 
 This gives you a **working spreadsheet** to move on to Step 2 (crime dates and sentences).
+
+---
+
+## 5. Spreadsheet formulas (Age at Crime & Age Band)
+
+### Age at Crime
+```excel
+=IF(OR(ISBLANK(E12),ISBLANK(G12)),"", YEAR(G12)-E12)
+```
+
+- Subtracts birth year (E) from the crime date’s year (G).  
+- Leaves blank if either is missing.  
+- Good approximation when only birth year is known.
+
+### Age Band
+```excel
+=IF(H12="","",IF(H12<18,"Juvenile (< 18)",IF(H12<=26,"Emerging Adult (18--26)","Adult (> 26)")))
+```
+
+- Labels each row as **Juvenile (<18)**, **Emerging Adult (18–26)**, or **Adult (>26)**.  
+- Based on `AgeAtCrime`.
+
+### Age at Filing (optional)
+```excel
+=IF(OR(ISBLANK(E12),ISBLANK(F12)),"", YEAR(F12)-E12)
+```
+
+- Computes defendant’s age when the case was filed.  
+
+---
+
+## 6. Spreadsheet organization & quality control
+
+- **Organize columns**: Keep Step 1 fields (case number, name, DOB, filed date, docket URL) on the left; Step 2 fields (crime date, sentence, sources) on the right.  
+- **Color coding**:  
+  - Missing critical fields (DOB, crime date) → red fill  
+  - Low-confidence rows → yellow fill  
+  - Verified appellate opinion sources → green fill  
+- **QC checklist**:  
+  - Distinguish **crime date** vs. **filing/sentencing date**  
+  - Add notes on confidence (high/low)  
+  - For “no info” rows, leave blank or mark `NO INFO` in Notes  
+  - Double-check co-defendant attributions and name variants  
+- **Backups**: Use auto-generated backups in `output/backups/` if the main file won’t open.
