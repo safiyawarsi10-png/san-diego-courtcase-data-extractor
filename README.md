@@ -1,6 +1,6 @@
-# San Diego Criminal Cases -- Data Collection & Research
+# San Diego Defendant Cases -- Data Collection & Research
 
-*An automation toolkit for building an auditable dataset of San Diego criminal court cases*
+*An automation toolkit for building an auditable dataset of San Diego Superior Court defendant cases*
 
 > **Audience:** Investigative journalists, public‑interest lawyers, researchers, and technically‑minded volunteers. Comfortable running Python scripts; no prior court‑data scraping experience required.
 
@@ -9,12 +9,12 @@
 ## 0. Core goal
 
 **Purpose**  
-This document outlines the research process and tools used by our team and volunteers to build a **transparent dataset for bias analysis**. We're building a structured, auditable dataset of San Diego criminal court cases so we can ask a set of **clear, testable questions** about fairness and consistency in charging and sentencing.
+This document outlines the research process and tools used by our team and volunteers to build a **transparent dataset for bias analysis**. We're building a structured, auditable dataset of San Diego Superior Court defendant cases so we can ask a set of **clear, testable questions** about fairness and consistency in charging and sentencing.
 
 **Concretely, we're:**
 - **Assembling core facts** (defendant name, birth‑year, filing date) directly from the Superior Court's public **Case Detail** pages (via the court index link).  
-- **Pulling in crime dates and sentencing outcomes** from reputable local news or appellate opinions using a **custom GPT tool**.  
-- **Computing exact or best‑available age at the time of the crime**, then bucketing into: Juvenile (<18), Emerging Adult (18–26), Adult (>26).  
+- **Pulling in incident dates and sentencing outcomes** from reputable local news or appellate opinions using a **custom GPT tool**.  
+- **Computing exact or best‑available age at the time of the incident**, then bucketing into: Juvenile (<18), Emerging Adult (18–26), Adult (>26).  
 - **Flagging any gaps or estimates** in our data (e.g., `DOB≈1993 inferred from press release`) so **nothing is hidden**.
 
 **What questions can this dataset answer? (examples)**  
@@ -27,24 +27,38 @@ This document outlines the research process and tools used by our team and volun
 - Within the same case, do similarly situated co‑defendants receive different sentences?  
 
 **Why this matters**  
-Once every record has a verified crime date, a birth‑year, the sentence, and source URLs, you can pivot and filter across groups, and run statistics (rate ratios, chi‑square, logistic regression) to test for differences that are **material and reproducible**.
+Once every record has a verified incident date, a birth‑year, the sentence, and source URLs, you can pivot and filter across groups, and run statistics (rate ratios, chi‑square, logistic regression) to test for differences that are **material and reproducible**.
 
 **Our pipeline, at a glance**  
 Court lookup → GPT‑assisted news/legal research → Derived fields (ages, bands, §190.2 status) → QC flags.
 
 ---
 
+## Impact — Time & Scale
+
+Doing this work **fully manually** would take ~500–700 hours (3–4 months full-time).  
+With this toolkit, the process takes **~25–40 hours total** — compressing months into **a matter of weeks**.
+
+- **Step 1 (Court lookups):** ~45–65 hours manually → **4–8 hours automated**  
+- **Step 2 (Incident research & sentencing outcomes):** ~450–650 hours manually → **8–15 hours with GPT assistance**  
+- **Manual QC:** ~10–20 hours  
+- **Total reduction:** ~90% less effort while keeping auditability and transparency.
+
+This scale shift makes systematic, reproducible fairness analysis feasible for small research teams, journalists, and advocates.
+
+---
+
 ## 1. Overview — Why this exists
 
 ### Background (plain English)
-This toolkit supports research into potential **racial bias in criminal sentencing**, specifically examining how **age intersects with race** in criminal case outcomes.
+This toolkit supports research into potential **racial bias in defendant sentencing**, specifically examining how **age intersects with race** in defendant case outcomes.
 
-- **Research Question:** Does sentencing vary by race for defendants who were **juveniles (<18)** or **emerging adults (18–26)** when they committed serious crimes in San Diego?  
-- **Data Scope:** Approximately 1,300 case numbers covering San Diego criminal cases.  
-- **Key variables:** demographics, crime details, outcomes, age analysis, filing dates, locations, and docket links.
+- **Research Question:** Does sentencing vary by race for defendants who were **juveniles (<18)** or **emerging adults (18–26)** when they committed serious incidents in San Diego?  
+- **Data Scope:** Approximately 1,300 case numbers covering San Diego defendant cases.  
+- **Key variables:** demographics, incident details, outcomes, age analysis, filing dates, locations, and docket links.
 
 ### 1.1 The real‑world problem
-Public criminal court records in California are **fragmented** across court index pages, opinions, and news. For fairness work, you need the same fields consistently, backed by links.
+Public defendant court records in California are **fragmented** across court index pages, opinions, and news. For fairness work, you need the same fields consistently, backed by links.
 
 ### 1.2 Our design goals
 - **Auditability:** Every row has URLs and notes.  
@@ -53,7 +67,7 @@ Public criminal court records in California are **fragmented** across court inde
 - **Human‑in‑the‑loop:** Avoids full automation; humans make the final call.
 
 ### 1.3 Why age and §190.2 matter
-- **Age at crime** defines Juvenile / Emerging Adult / Adult.  
+- **Age at incident** defines Juvenile / Emerging Adult / Adult.  
 - **Special circumstances (Penal Code §190.2)** determine punishment exposure.
 
 ### 1.4 Workflow grounding
@@ -65,7 +79,7 @@ Each Step 2 session starts from the docket, attaches evidence, and produces JSON
 - Extend later with new counties, columns, or analyses.
 
 ### 1.6 Guardrails
-- Don’t confuse crime date with filing/sentencing date.  
+- Don’t confuse incident date with filing/sentencing date.  
 - Prefer official sources over media.  
 - Confirm defendant identity when multiple exist.
 
@@ -75,11 +89,9 @@ Each Step 2 session starts from the docket, attaches evidence, and produces JSON
 
 This repo contains a **hybrid automation** that removes ~85–90% of manual toil:
 
-- **Court Data Extraction** — fetches case basics into a spreadsheet.  
-- **GPT‑Assisted Research** — semi‑automated, finds crime dates, sentences, and sources.  
+- **Court Data Extraction** — fetches defendant case basics into a spreadsheet.  
+- **GPT‑Assisted Research** — semi‑automated, fills in incident dates, sentences, and sources.  
 - **Human Oversight** — compute ages, assign bands, resolve conflicts, mark confidence.
-
-⏱ **Impact:** months of manual research → ~40–60 hours for ~1,300 cases.
 
 ---
 
@@ -95,9 +107,9 @@ This repo contains a **hybrid automation** that removes ~85–90% of manual toil
 
 - **Defendant**: name, birth year, race (if available)  
 - **Court**: case number, filing date, location, docket URL  
-- **Offense**: crime date, crime type  
+- **Incident**: incident date, incident type  
 - **Outcome**: sentence, plea vs. trial, juvenile vs. adult court  
-- **Derived**: age at crime, age band  
+- **Derived**: age at incident, age band  
 - **Provenance**: URLs, notes, confidence
 
 ---
@@ -141,6 +153,7 @@ source .venv/bin/activate
 pip install -r requirements.txt
 playwright install chromium
 ```
+
 ---
 
 ## 7.1 Workflow Summary — Step 1 and Step 2
@@ -148,13 +161,13 @@ playwright install chromium
 This toolkit works in **two main steps**, with each step documented in its own folder:
 
 - **Step 1 — Court Data Extraction**  
- Runs a Playwright-based script that fetches case details by case number and writes them into an **Excel spreadsheet**.  
+  Runs a Playwright-based script that fetches case details by case number and writes them into an **Excel spreadsheet**.  
   Populated columns typically include: **CaseNumber, DefendantName, DOB (year), DateFiled, CaseLocation, Source_DocketURL**.  
-  The sheet also contains **predefined columns** that are present but intentionally **left blank** for later completion (e.g., **CrimeDate, Sentence, ChargesConvicted, DefendantRace, PleaOrTrial, SpecialCircumstance, Source_ArticleURL, Notes, Confidence, CaseSummary**).  
-  Any spreadsheet **formulas** (e.g., *AgeAtCrime*, *AgeBand*) will automatically compute **once their input fields (like CrimeDate)** are filled later.
+  The sheet also contains **predefined columns** that are present but intentionally **left blank** for later completion (e.g., **IncidentDate, Sentence, ChargesConvicted, DefendantRace, PleaOrTrial, SpecialCircumstance, Source_ArticleURL, Notes, Confidence, CaseSummary**).  
+  Any spreadsheet **formulas** (e.g., *AgeAtIncident*, *AgeBand*) will automatically compute **once their input fields (like IncidentDate)** are filled later.
 
 - **Step 2 — GPT-Assisted Research**  
-  Uses a transparent, versioned prompt plus your manual oversight to find **crime dates, sentences, charges, and source links** from appellate opinions, official documents, and reliable news.  
+  Uses a transparent, versioned prompt plus your manual oversight to find **incident dates, sentences, charges, and source links** from appellate opinions, official documents, and reliable news.  
   You paste the JSON output into the spreadsheet to **fill those existing blank fields**.  
   Step 2 **does not add new columns**; it helps complete the ones already defined in the sheet.
 
@@ -226,6 +239,13 @@ Together, these two steps turn a raw list of case numbers into a **complete, aud
 
 Released under the **MIT License**. Use at your own risk. Respect website terms of service and privacy laws.  
 This repository is for research and journalism support, **not legal advice**.
+
+---
+
+## 14. Acknowledgments
+
+- **Pillars of the Community** (https://www.potcsd.org/) — for getting this project started and defining requirements.  
+- Thanks to volunteers and contributors for building a transparent, reproducible workflow.
 
 ---
 
