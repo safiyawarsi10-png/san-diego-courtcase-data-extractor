@@ -141,6 +141,24 @@ source .venv/bin/activate
 pip install -r requirements.txt
 playwright install chromium
 ```
+---
+
+## 7.1 Workflow Summary — Step 1 and Step 2
+
+This toolkit works in **two main steps**, with each step documented in its own folder:
+
+- **Step 1 — Court Data Extraction**  
+ Runs a Playwright-based script that fetches case details by case number and writes them into an **Excel spreadsheet**.  
+  Populated columns typically include: **CaseNumber, DefendantName, DOB (year), DateFiled, CaseLocation, Source_DocketURL**.  
+  The sheet also contains **predefined columns** that are present but intentionally **left blank** for later completion (e.g., **CrimeDate, Sentence, ChargesConvicted, DefendantRace, PleaOrTrial, SpecialCircumstance, Source_ArticleURL, Notes, Confidence, CaseSummary**).  
+  Any spreadsheet **formulas** (e.g., *AgeAtCrime*, *AgeBand*) will automatically compute **once their input fields (like CrimeDate)** are filled later.
+
+- **Step 2 — GPT-Assisted Research**  
+  Uses a transparent, versioned prompt plus your manual oversight to find **crime dates, sentences, charges, and source links** from appellate opinions, official documents, and reliable news.  
+  You paste the JSON output into the spreadsheet to **fill those existing blank fields**.  
+  Step 2 **does not add new columns**; it helps complete the ones already defined in the sheet.
+
+Together, these two steps turn a raw list of case numbers into a **complete, auditable dataset** ready for fairness and bias analysis.
 
 ---
 
