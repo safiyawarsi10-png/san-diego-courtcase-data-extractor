@@ -246,10 +246,3 @@ This repository is for research and journalism support, **not legal advice**.
 
 - [Pillars of the Community](https://www.potcsd.org/) — for getting this project started and defining requirements.  
 - Thanks to volunteers and contributors for building a transparent, reproducible workflow.
-
----
-
-## 14. Acknowledgments
-
-- **Pillars of the Community** — for getting this project started and defining requirements.  
-- Thanks to volunteers and contributors for building a transparent, reproducible workflow.
