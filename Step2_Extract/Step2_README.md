@@ -10,10 +10,11 @@ with **crime dates, sentences, and other fields** by using a GPT-based extractor
 This semi-automated phase uses a specialized GPT workflow and keeps **you** in control of verification.
 
 **Preferred workflow:**
-1. From your Step 1 spreadsheet, open the **Source_DocketURL** (the court index link).
+1. From your Step 1 spreadsheet, open the **Source_DocketURL** (the court index link). For example: https://courtindex.sdcourt.ca.gov/CISPublic/casedetailr?casenum=SCN367895&casesite=NC&applcode=R 
 2. Copy the visible case fields (Case Title, Case Number, Case Location, Case Type, Date Filed).
 3. Provide those details to the GPT assistant along with supporting PDFs or articles.
-4. Paste the JSON returned into your spreadsheet.
+   GPT assistant: https://chatgpt.com/g/g-68992f4b52a4819197a6166755b35d4b-criminal-case-extractor-san-diego
+5. Paste the JSON returned into your spreadsheet.
 
 ### What you’ll copy from the court page
 From the court index page for the case, copy the visible text for: Case Title, Case Number, Case Location, Case Type, Date Filed.
@@ -38,21 +39,20 @@ Date Filed:   12/29/2016
 
 ```json
 {
-  "defendant_name": "Kevin Phan",
-  "crime_date": "2016-12-24",
-  "defendant_age_at_crime": "22",
-  "sentence": "25 years to life plus 3 years (total 28 years)",
-  "charges_convicted": "First-degree murder",
-  "crime_type": "Homicide (shooting)",
-  "defendant_race": "",
-  "juvenile_adult_court": "Adult",
-  "plea_or_trial": "Guilty plea",
-  "confidence_level": "high",
-  "case_summary": "Kevin Phan shot and killed a 22-year-old Fallbrook man on Christmas Eve 2016 in Vista. He later pleaded guilty to first-degree murder and, in March 2018, was sentenced to 25 years to life plus 3 years (28 years total). There is no indication that any Penal Code §190.2 special-circumstance allegation was charged or found true.",
-  "special_circumstance_overall_status": "SC_N_NOAPPL",
+  "defendant_name": "This text includes the name of the defendant",
+  "crime_date": "This includes the date in the format YYYY-MM-DD",
+  "defendant_age_at_crime": "This text includes the age in numbers of the defendant",
+  "sentence": "This text includes the eventual sentence the defendant received",
+  "charges_convicted": "This text includes the charges pressed",
+  "crime_type": "This text includes the type of alleged offense",
+  "defendant_race": "This text includes the race of the defendant",
+  "juvenile_adult_court": "This text includes either 'Adult' or 'Juvenile' depending on the court the defendant was sent to",
+  "plea_or_trial": "This text will include whether or not the defendant made a plea",
+  "confidence_level": "This text includes how reliable the sources are for the provided information, whether it's high, medium, or low. It's a good idea to manually double check if the confidence level comes out as low.",
+  "case_summary": "This text summarizes the incident and provides an explanation why special circumstance under the penal code 190.2 applies or doesn't apply if it's specifically a homicide case",
+  "special_circumstance_overall_status": "This includes a shorthand code of conveying whether the incident was special circumstance or not, wnad whether it was applied",
   "sources": [
-    "https://www.nbcsandiego.com/news/local/vista-man-sentenced-to-28-years-in-prison-in-christmas-eve-2016-killing/163575/",
-    "https://timesofsandiego.com/crime/2016/12/27/vista-man-22-suspected-fatal-christmas-eve-shooting/",
+    This provides sources of where the information for the json was pulled. For example:
     "https://codes.findlaw.com/ca/penal-code/pen-sect-190-2/"
   ]
 }
