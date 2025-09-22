@@ -136,7 +136,7 @@ This repo contains a **hybrid automation** that removes ~85–90% of manual toil
 pip install playwright pandas openpyxl requests
 playwright install chromium
 ```
-
+- All packages that are necessary are located in the requirements.txt file
 ---
 
 ## 7. Installation
