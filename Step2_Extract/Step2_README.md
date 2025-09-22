@@ -11,8 +11,12 @@ This semi-automated phase uses a specialized GPT workflow and keeps **you** in c
 
 **Preferred workflow:**
 1. From your Step 1 spreadsheet, open the **Source_DocketURL** (the court index link). For example: https://courtindex.sdcourt.ca.gov/CISPublic/casedetailr?casenum=SCN367895&casesite=NC&applcode=R 
-2. Copy the visible case fields (Case Title, Case Number, Case Location, Case Type, Date Filed).
-3. Provide those details to the GPT assistant along with supporting PDFs or articles.
+2. Copy the visible case fields as shown in Figure 1(Case Title, Case Number, Case Location, Case Type, Date Filed).
+
+![View Case Detail](https://github.com/user-attachments/assets/a8f890b8-88d6-45e4-a787-bf73d72ae834)
+Figure 1
+
+4. Provide those details to the GPT assistant along with supporting PDFs or articles.
    GPT assistant: https://chatgpt.com/g/g-68992f4b52a4819197a6166755b35d4b-criminal-case-extractor-san-diego
 5. Paste the JSON returned into your spreadsheet.
 
