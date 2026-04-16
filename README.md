@@ -138,7 +138,7 @@ Leave fields blank if not verifiable; mark confidence accordingly.
 - **Python:** 3.9+ recommended
 - **Storage:** ~500 MB software + ~50 MB data
 - **Network:** Stable broadband
-- **Time:** ~2–3 hours for setup
+- **Time:** ~2–3 hours for total research
 - **Accounts:** Claude (for the AI-assisted research step — see Section 7.2)
 
 **Packages**
@@ -217,10 +217,10 @@ The specialized prompt used to configure Claude for this task is versioned and s
 
 ## 10. Time & cost expectations
 
-- Setup: 2–3 hours
-- Step 1: 4–8 hours for ~1,300 cases (unattended)
-- Step 2: 8–15 hours with human input
-- Manual QC: 10–20 hours
+- Setup: 10 minutes
+- Step 1: 3-4 hours for ~1,300 cases (unattended)
+- Step 2: 4-5 hours with human input
+- Manual QC: 10–20+ hours
 - Claude usage: Claude Pro recommended for uninterrupted runs on large batches
 
 ---
